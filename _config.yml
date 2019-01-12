@@ -12,7 +12,7 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 remote_theme           : "mmistakes/minimal-mistakes"
-minimal_mistakes_skin    : "plum" #"default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", , "sunrise"
+minimal_mistakes_skin    : "mint"  #"default", "air", "aqua", "contrast","plum", "dark", "dirt", "neon", , , "sunrise"
 
 # Site Settings
 locale                   : "en-US"
@@ -104,9 +104,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "Youngvly"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an amazing person."
+  bio              : "일단 공부해봅시다"
   location         : "Somewhere"
   email            :
   links:
