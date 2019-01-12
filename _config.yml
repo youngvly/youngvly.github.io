@@ -16,12 +16,12 @@ minimal_mistakes_skin    : "mint"  #"default", "air", "aqua", "contrast","plum",
 
 # Site Settings
 locale                   : "en-US"
-title                    : "공부방"
+title                    : "개발블로그"
 title_separator          : "-"
 name                     : "youngvly"
 description              : "An amazing website."
-url                      : "https://youngvly.github.io"
-baseurl                  : "/spring-boot-study"
+url                      : "https://youngvly.github.io/"
+baseurl                  : #"/spring-boot-study"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
