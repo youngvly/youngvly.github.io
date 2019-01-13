@@ -102,8 +102,18 @@ public void() {
 } 
 ```
 
+## 6_ @WebAppConfiguration
+```java
+    private MockMvc mockMvc;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
-
+    @Before
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
+```
+위의 과정 대신 @AutoConfigureMockMvc 을 사용하면 바로 Mockmvc 사용 가능
 
 
 
