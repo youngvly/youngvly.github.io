@@ -9,10 +9,13 @@ categories: Spring-boot-study
 1. EC2 인스턴스 생성
 2. Xshell에 ssh port 22 로 연결
 3. user 생성하기 
+
 ```shell
 $ adduser root
 ```
+
 4. EC2에 Docker 설치하기
+
 ```shell
 $ sudo yum update -y
 $ sudo yum install -y docker
@@ -87,6 +90,7 @@ Complete!
 ```
 
 5. Docker 실행
+
 ```shell
 $ sudo service docker start
 Starting cgconfig service:                                 [  OK  ]
@@ -95,10 +99,12 @@ Starting docker:	.                                  [  OK  ]
 
 $ sudo usermod -a -G docker $USER
 ```
+
 $USER = root(혹은 ec2-user)
 sudo 없이 사용하기 위해 docker그룹에 sudo 를 추가
 
 6. Docker 에 Tomcat 설치
+
 ```shell
 $ docker pull tomcat:8      #톰캣 설치
 $ docker images             #이미지 확인
@@ -107,6 +113,7 @@ $ docker ps                 #실행 확인
 $ docker restart $ID
 $ docker rmi $Image_ID      #이미지 삭제
 ```
+
 tomcat 실행시
 -d : demon으로 실행한다
 -p : 8081:8080 -> 이미지를 8080으로 실행하지만, 호스트에서 접근시 8081로 접근한다
@@ -134,6 +141,7 @@ EXPOSE 8080
     + 컨테이너가 탑재된 단독형 앱을 확장 간으한 형태로 유지할 수 있다.
     + WEB-INF/lib-provided 에 톰캣 라이브러리가 들어간다.
     + 톰캣 라이브러리가 WEB-INF/lib 에 들어가면 JAR파일이 충돌하면서 컨테이너가 시동 실패한다.
+    
 ```xml
           <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -141,12 +149,16 @@ EXPOSE 8080
             <scope>provided</scope>
         </dependency>
 ```
+
   - packaging 추가
+  
 ```xml
     <packaging>war</packaging>
 ```
+
   - Main App 수정
       + WAR파일에서 SpringApplication을 실행하는 WebApplicationInitializer 인터페이스를 스프링 부터에 맞게 구현한 클래스, 애플리케이션 컨텍스트로부터 서블릿, 필터, ServletContextInitializer 빈을 서블릿 컨테이너에 바인딩한다. 
+      
 ```java
 @SpringBootApplication
 public class DemoApplication extends SpringBootServletInitializer {
@@ -161,21 +173,25 @@ public class DemoApplication extends SpringBootServletInitializer {
     }
 }
 ```
+
   - Packaging
+  
 ```shell
    mvn clean package -DskipTests=true
 #    mvn clean install spring-boot:repackage -DskipTests=true
 ```
+
    + install 을 하는 이유
    오류 발생
+   
 ```shell
    :repackage failed: Source file must be provided -> [Help 1]
 ```
     spring-boot-maven-plugin 을 .m2 folder로 다운로드 하는중 이슈가 있는듯. m2\repository 에 있는 것을 삭제하고 재설치하는 작업이 필요.
-- war 파일로 변경하고싶은 경우:  https://www.reimaginer.me/entry/Spring-Boot-jar-to-war
   
 8. FTP 사용
  vsftpd를 설치한다(Very Secured FTPD) : 우분투에서 기본적으로 제공되는 ftp 서버
+ 
 ```shell
 $ sudo yum install vsftpd
 ```
@@ -185,6 +201,7 @@ $ sudo yum install vsftpd
 - 해당 root 폴더에 Dockerfile 같이 있어야함.
 
 9. docker build
+
 ```shell
 [root@ip-172-31-27-226 ~]# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -211,15 +228,19 @@ tomcat_test         latest              b372aa986c86        4 seconds ago       
 tomcat              8                   1a51cb5e3006        2 weeks ago         462MB
 
 ```
+
 마지막 . 은 dockerfile이 있는 장소인듯?
 
 10. Docker Run
+
 ```shell
 [root@ip-172-31-27-226 ~]# docker run -d -i -t --name="tomcat_test_container" -p 8080:8080 -v demo-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/demo-0.0.1-SNAPSHOT.war tomcat_test
 c716f7e9fdf11a1c00c21ba1dea568f5fdb1b021372f048cc8746f1807b7bab4
 ```
+
 -v ~파일을 /usr/local/tomcat/webaps/~ 로 copy하겠다. 
 -p : 8081:8080 -> 이미지를 8080으로 실행하지만, 호스트에서 접근시 8081로 접근한다
+
 ```shell
 [root@ip-172-31-27-226 ~]# docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
@@ -240,6 +261,7 @@ drwxr-xr-x  5 root root  4096 Dec 29 11:48 manager
 root@c716f7e9fdf1:/usr/local/tomcat# exit
 exit
 ```
+
 webapps에 파일이 들어가있는지 확인 가능. 
 
 ```shell
