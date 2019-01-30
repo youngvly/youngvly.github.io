@@ -54,11 +54,11 @@ restTemplate의 postForEntity를 차례로 호출하여 처리한다. (에러처
 ```
 
 ### 문제
-    - Default 로 ForkJoinPool.commonPool 를 사용하며 이는 Runtime.getRuntime().availableProcessors() 에서 반환하는 프로세서의 개수 -1개 만큼 쓰레드를 사용한다.
-        (CPU 코어 개수만큼 반환한다.)
-    - 한 프로세서당 하나의 쓰레드를 사용한다.
-    - 이는 nested parallel stream 혹은 다수의 parallel stream 의 쓰레드들이 모두 하나의 풀을 공유한다고 할수있다.
-    - 최대로 사용했을때 모든 프로세서를 할당받지는 못한다.
+- Default 로 ForkJoinPool.commonPool 를 사용하며 이는 Runtime.getRuntime().availableProcessors() 에서 반환하는 프로세서의 개수 -1개 만큼 쓰레드를 사용한다.
+    (CPU 코어 개수만큼 반환한다.)
+- 한 프로세서당 하나의 쓰레드를 사용한다.
+- 이는 nested parallel stream 혹은 다수의 parallel stream 의 쓰레드들이 모두 하나의 풀을 공유한다고 할수있다.
+- 최대로 사용했을때 모든 프로세서를 할당받지는 못한다.
 
 ### Thread 개수 해결방안 
   1.  system property 수정
@@ -80,8 +80,8 @@ myPool.submit(() -> {
   });
 }).get(); 
 ```
-    위 방법으로 pool 크기를 정의하여 사용할 수 있다.
-    하지만 일반적으로는 common ForkJoinPool 을 사용하므로 해당 풀을 사용하는 다른 쓰레드에 영향을 줄 수 있다.
+위 방법으로 pool 크기를 정의하여 사용할 수 있다.
+하지만 일반적으로는 common ForkJoinPool 을 사용하므로 해당 풀을 사용하는 다른 쓰레드에 영향을 줄 수 있다.
     
  + ForkJoinPool
   <img src="https://javatechnocampus.files.wordpress.com/2015/10/untitled.jpg">
