@@ -1,6 +1,6 @@
 ---
 title: "ASync is not the best way in always"
-date: 2019-01-27 22:05:00 -0400
+date: 2019-01-30 23:43:00 -0400
 categories: Spring-boot-study
 ---
 
