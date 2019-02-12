@@ -3,7 +3,6 @@ title: "JavaScript methodChaining"
 date: 2019-02-11 18:00:00 -0400
 categories: JavaScript-study
 ---
-
 # Method Chaining
 
 
@@ -36,7 +35,8 @@ $('#my-div').css('background', 'blue').height(100).fadeIn(200);
 * 유지보수가 개선된다.
 
 ## 단점
-* 디버깅이 어렵다. (에러발생 라인을 찾을 수는 있어도, 해당 라인에서 여러일을 수행하고있을 수 있음. - train accident pattern [clean code])
+* 디버깅이 어렵다. 
+(에러발생 라인을 찾을 수는 있어도, 해당 라인에서 여러일을 수행하고있을 수 있음. - train wreck [clean code에서는 줄단위로 나누라고 말한다.])
   
 Jquery 라이브러리 등에서도 널리 사용되고 있으며,
 DOM API에서도 일부 체이닝 패턴을 사용하는 경향이 있다.
@@ -58,7 +58,7 @@ prototype을 이용해서 클래스 와 비슷한 역할을 할 수 있다.
         return this;
     }
 
-    DBConnector.prototype.password = function(password){  
+    UserInfo.prototype.password = function(password){  
         this._password = password;
         return this;
     };
