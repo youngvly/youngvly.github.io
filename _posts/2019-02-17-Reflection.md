@@ -46,6 +46,9 @@ runTime 에 JVM에 로딩되어있는 클래스와 메소드의 정보를 읽어
 - 성능, 직접 참조경우에 비해 2~4배정도 느린것이 사실이다. 하지만, 이는 Reflection에 따른 성능저하가 아니라, 지금,성능 측정 결과, Reflection을 사용한 경우에는 성능저하가 되었다는것이다. 
 JDK초기버전의 경우 Reflection의 성능이 현저히 떨어졌지만, 최근에는 많이 개선되어 Reflection을 통해 많은 이득을 취하게 해준다.
 
++ 생각보다 흔히? 사용된다.
+- spring에서 beanFactory에서 객체가 호출되면 객체의 인스턴스를 생성하는데, 그때 reflection을 사용한다.
+- Java serialization도 reflection을 사용한다.
 
 # Reflection Field를 사용한 객체의 field를 multivalueMap으로 반환해주는 유틸 
 
@@ -106,4 +109,4 @@ reflected object가 사용될때 발생하는 Java language access control Check
 - securityMannager가 private member의 접근을 허용하지 않을경우에는 메소드실행이 실패할것.
 - suppress 하지 않으면, IllegalAccessException이 발생한다. 
 
-- Java serialization도 reflection의 set Accessible을 사용한다.
+
