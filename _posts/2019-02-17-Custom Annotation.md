@@ -12,9 +12,9 @@ Spring 사용시 아주 유용하게 사용되는 Annotation을 직접 만들어
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ParamDescriptor {
-	String name() default '';
+    String name() default '';
 
-	boolean required() default false;
+    boolean required() default false;
 }
 ```
 
