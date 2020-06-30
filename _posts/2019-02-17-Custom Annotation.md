@@ -11,7 +11,7 @@ categories: Spring-boot-study
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ParamDescriptor {
 
-	String name() default "";
+	String name() default '';
 
 	boolean required() default false;
 }
