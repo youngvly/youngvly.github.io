@@ -2,15 +2,16 @@
 title: "Custom Annotation"
 date: 2019-02-17 23:43:00 -0400
 categories: Spring-boot-study
+tags: spring, annotation
 ---
 
-# Annotation 
+Spring 사용시 아주 유용하게 사용되는 Annotation을 직접 만들어보자.
 
+# Annotation 
 ```java
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ParamDescriptor {
-
 	String name() default '';
 
 	boolean required() default false;
