@@ -2,7 +2,8 @@ title: 일단 공부
 author: youngvly
 email: dy1dy2@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-backend developer working in korea. Please contact me if some post has wrong info or in problem
+ backend developer working in korea.
+ Please contact me if some post has wrong info or in problem
 show_excerpts: true # set to true to show excerpts on the homepage
 
 # Minima date format
@@ -16,6 +17,9 @@ plainwhite:
   sitemap: true # set to true to generate sitemap.xml content
   search: true # set to true to enable searchbar
   dark_mode: true # set to true to add dark mode toggle
+  navigation :
+    - title: Spring
+      url : /spring-boot-study
 
   # generate social links in footer
   social_links:
