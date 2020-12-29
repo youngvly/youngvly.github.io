@@ -21,9 +21,9 @@ plainwhite:
     - title: SpringBoot
       url : /spring-boot
     - title: JavaScript
-    url : /java-script
+      url : /java-script
     - title: RxJava
-    url : /rx-java
+      url : /rx-java
 
   # generate social links in footer
   social_links:
