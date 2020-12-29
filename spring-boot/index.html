@@ -1,8 +1,9 @@
 ---
 layout: default
 permalink: '/spring-boot'
+title : SpringBoot
 ---
-{%- assign category = site.categories[0] -%}
+{%- assign category = site.categories.SpringBoot -%}
 <p id="categoryTest">{{category}}</p>
 
 {%- if category -%}
@@ -13,7 +14,7 @@ permalink: '/spring-boot'
 
 {{ content }}
 
-{%- if category[1].size > 0 -%}
+{%- if category.size > 0 -%}
   <ul class="posts">
     <li class="posts-labelgroup" id="posts-labelgroup">
       <h1 id="posts-label">posts</h1>
@@ -28,9 +29,7 @@ permalink: '/spring-boot'
       {% endif %}
     </li>
 
-    <h2 class="post-title" id="{{ category[0] | slugify }}">{{ category | first }}</h2>
-
-    {%- for post in category[1] -%}
+    {%- for post in category -%}
       <li>
         {%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
         <a class="post-link" href="{{ post.url | relative_url }}">
