@@ -55,4 +55,4 @@ plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
 
-category_list: [ SpringBoot,JavaScript,rxJava]
+categories: [ SpringBoot,JavaScript,rxJava]
