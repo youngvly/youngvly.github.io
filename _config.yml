@@ -19,7 +19,7 @@ plainwhite:
   dark_mode: true # set to true to add dark mode toggle
   navigation :
     - title: Spring
-      url : /spring-boot-study
+      url : /spring-boot
 
   # generate social links in footer
   social_links:
@@ -54,3 +54,5 @@ theme: plainwhite
 plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
+
+category_list: [ SpringBoot,JavaScript,rxJava]

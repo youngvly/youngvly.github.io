@@ -1,7 +1,7 @@
 ---
 title: "SpringBoot와 webpack연동시 발생한 문제"
 date: 2019-02-19 17:00:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 # Spring Boot 와 webpack의 연동

@@ -1,7 +1,7 @@
 ---
 title: "Immutable Object (RestTemplate Builder을 Bean으로 생성하기)"
 date: 2019-01-12 22:37:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 # RestTemplateBuilder Bean 으로 RestTemplate 생성
 

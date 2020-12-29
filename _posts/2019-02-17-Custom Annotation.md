@@ -1,7 +1,7 @@
 ---
 title: "Custom Annotation"
 date: 2019-02-17 23:43:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 tags: spring, annotation
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Java - Reflection"
 date: 2019-02-10 23:43:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 # Reflection

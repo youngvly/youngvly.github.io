@@ -1,7 +1,7 @@
 ---
 title: "HTML DOM에 Element 넣는 방법 비교 (String vs elementNode)"
 date: 2019-01-14 23:00:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 # Html DOM에 태그 넣는 방법 비교 

@@ -1,7 +1,7 @@
 ---
 title: "ways of URIparam init"
 date: 2019-01-27 22:05:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 # URI Builer의 query parameter 등록 방법.

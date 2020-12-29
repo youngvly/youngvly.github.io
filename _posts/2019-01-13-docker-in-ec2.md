@@ -1,7 +1,7 @@
 ---
 title: "Docker in EC2"
 date: 2019-01-13 18:00:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 # AWS ec2에 Docker 설치부터 배포하기

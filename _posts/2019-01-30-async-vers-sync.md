@@ -1,7 +1,7 @@
 ---
 title: "ASync is not the best way in always"
 date: 2019-01-30 23:43:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 post요청과 delete요청을 해야하는 api가 있다.

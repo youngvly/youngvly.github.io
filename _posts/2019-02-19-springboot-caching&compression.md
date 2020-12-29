@@ -1,7 +1,7 @@
 ---
 title: "SpringBoot Cache & compression 설정"
 date: 2019-02-19 19:00:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 ### spring.resources.chain.cache

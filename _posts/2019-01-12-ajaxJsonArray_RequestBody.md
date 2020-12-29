@@ -1,7 +1,7 @@
 ---
 title: "send ajax-JsonArray and recieve with @RequestBody"
 date: 2019-01-12 22:37:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 ajax 로 post요청을 보내는중, jsonArray를 보내는 과정에서, 서버가 배열의 크기만큼의 데이터를 받기는 하지만 실제 값은 null과 0 인 default값으로 값이들어온다.
 

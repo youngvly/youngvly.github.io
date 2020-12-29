@@ -1,7 +1,7 @@
 ---
 title: "Exception Handling in Spring Controller"
 date: 2019-01-08 22:37:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 
 Exception이 일어날 경우  try catch로 잡는다. 

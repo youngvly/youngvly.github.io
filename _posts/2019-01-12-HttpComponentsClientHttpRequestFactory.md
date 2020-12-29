@@ -1,7 +1,7 @@
 ---
 title: "HttpComponenetsClientHttpRequestFactory 란"
 date: 2019-01-12 22:37:00 -0400
-categories: Spring-boot-study
+categories: SpringBoot
 ---
 # HttpClient
 - Http프로토콜통신을 할수있도록 도와주는 client side API
