@@ -3,6 +3,8 @@ layout: default
 permalink: '/spring-boot'
 ---
 {%- assign category = site.categories[0] -%}
+<p id="categoryTest">{{category}}</p>
+
 {%- if category -%}
 
 {%- if page.title -%}
@@ -11,7 +13,7 @@ permalink: '/spring-boot'
 
 {{ content }}
 
-{%- if site.posts.size > 0 -%}
+{%- if category[1].size > 0 -%}
   <ul class="posts">
     <li class="posts-labelgroup" id="posts-labelgroup">
       <h1 id="posts-label">posts</h1>
