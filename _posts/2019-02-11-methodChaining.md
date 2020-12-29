@@ -1,7 +1,7 @@
 ---
 title: "JavaScript methodChaining"
 date: 2019-02-11 18:00:00 -0400
-categories: JavaScript-study
+categories: JavaScript
 ---
 # Method Chaining
 
