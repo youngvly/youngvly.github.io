@@ -1,8 +1,8 @@
 ---
-title: "JAVA 8 to JAVA 17 "
-date: 2022-03-03 19:10:00 +0400
+title: "JAVA 9 release "
+date: 2022-03-04 11:10:00 +0400
 categories: JAVA
-tags: java17
+tags: java9, java
 ---
 # JAVA 9
 ### 1. Modular System
