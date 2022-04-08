@@ -2,4 +2,4 @@
 
 
 - theme : https://github.com/samarsault/plainwhite-jekyll
-- link : [youngvly.github.io](youngvly.github.io)
+- link : [youngvly.github.io](https://youngvly.github.io/)
