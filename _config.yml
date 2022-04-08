@@ -52,7 +52,7 @@ plainwhite:
 
 # Build settings
 remote_theme: samarsault/plainwhite-jekyll
-theme: plainwhite
+#theme: plainwhite
 # theme: minima
 plugins:
   - jekyll-seo-tag
