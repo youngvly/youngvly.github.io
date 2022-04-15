@@ -49,7 +49,7 @@ plainwhite:
   social_links:
     github:  youngvly
   disqus_shortname: games
-
+  portfolio_image:  "assets/portfolio.png" 
 # Build settings
 remote_theme: samarsault/plainwhite-jekyll
 #theme: plainwhite
