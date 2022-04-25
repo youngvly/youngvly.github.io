@@ -7,7 +7,6 @@ tags: architecture
 
 # 분산 시스템을 위한 유일 ID 생성기 설계
 - auto_increment를 쓰면, db가 여러대면 delay를 낮추기 힘들것.
-> 왜 안좋은지 더 알아보자 
 1. 문제 이해 및 설계 범위 확정.
   : 시스템 설계 면접 문제를 푸는 첫단계는, 적절한 질문을 통해 모호함을 없애고 설계방향을 정하는 것   
   - 요구사항
@@ -50,5 +49,13 @@ tags: architecture
 
 > 애플리케이션 서버에서 유일 id 생성하는 방법은?
 - [MongoDB](https://www.mongodb.com/docs/manual/reference/method/ObjectId/) timeStamp-processRandomValue-incrementingCounter
-- 
+> autoIncrement가 왜 안좋은가
+- 1씩 increase되므로, 보안에 취약 [see](https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/)
+  - scrap이 쉬워짐.
+- [db 성능](https://blog.pythian.com/case-auto-increment-mysql/)
+  - pk로 secondary index 가 생성되면서 b-tree 유지비용이 든다.?
+  - commit까지 lock을 잡고있는다.
+  - master-slave 관계에서 master가 죽으면, slave로 업데이트가 안될수있는데, Master 복구후 새로 insert되면, 중복된 auto_increment를 slave가 받을수있음.????? 뭔소리
+  - 샤딩해야하는 경우, auto_increment가 unique하지 않을수있음
+- [Icicle](https://github.com/intenthq/icicle) , snowflake 방식인데 redis를 곁들인?
 
