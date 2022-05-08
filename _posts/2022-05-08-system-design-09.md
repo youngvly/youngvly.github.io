@@ -106,3 +106,5 @@ tags: architecture
 ----
 [space/time trade-offs in hash coding with allowable errors](https://dl.acm.org/doi/10.1145/362686.362692)
 [rabin fingerprint](https://en.wikipedia.org/wiki/Rabin_fingerprint)
+[checksum]
+[웹 크롤러 예]
