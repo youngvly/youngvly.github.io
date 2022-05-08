@@ -1,6 +1,12 @@
+---
+title: "[대규모 시스템 설계 기초] 07 분산 시스템을 위한 유일 ID 생성기 설계"
+date: 2022-04-15 19:10:00 +0400
+categories: 대규모 시스템 설계 기초
+tags: architecture
+---
+
 # 분산 시스템을 위한 유일 ID 생성기 설계
 - auto_increment를 쓰면, db가 여러대면 delay를 낮추기 힘들것.
-> 왜 안좋은지 더 알아보자 
 1. 문제 이해 및 설계 범위 확정.
   : 시스템 설계 면접 문제를 푸는 첫단계는, 적절한 질문을 통해 모호함을 없애고 설계방향을 정하는 것   
   - 요구사항
@@ -23,12 +29,13 @@
  - auto_increment기능을 갖춘 db를 한대만 사용.
  - 구현이 쉽고, 중소규모 에 적합.
  - 티켓서버가 SPOF가 된다. 티켓서버를 여러대 준비해야하고, 그럼 동기화문제가 다시 발생.
+ - [Flickr](https://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/)
  4)  트위터 스노우플레이크 접근법 (snow flake)
  - id의 구조를 여러 section으로 분할한다.
    -  sign bit : 음-양수 구별 등 언젠간쓸 값 (?)
    - timestamp : epoch millisecond 
-   - datacenter ID : n bit =  2^n 개의 데이터 센터 지원 가능.
-   - 서버 ID : 2^n 개의 서버 사용 가능.
+   - datacenter ID : n bit =  $2^n$ 개의 데이터 센터 지원 가능.
+   - 서버 ID : $2^n$ 개의 서버 사용 가능.
    - 일련번호 : ID 생성시마다 +1 / 1ms 시마다 0으로 초기화된다.
  > 이건 DB서버에 적용되는 알고리즘인가? 
 3. 상세 설계
@@ -41,4 +48,14 @@
 - [snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake)
 
 > 애플리케이션 서버에서 유일 id 생성하는 방법은?
+- [MongoDB](https://www.mongodb.com/docs/manual/reference/method/ObjectId/) timeStamp-processRandomValue-incrementingCounter
+> autoIncrement가 왜 안좋은가
+- 1씩 increase되므로, 보안에 취약 [see](https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/)
+  - scrap이 쉬워짐.
+- [db 성능](https://blog.pythian.com/case-auto-increment-mysql/)
+  - pk로 secondary index 가 생성되면서 b-tree 유지비용이 든다.?
+  - commit까지 lock을 잡고있는다.
+  - master-slave 관계에서 master가 죽으면, slave로 업데이트가 안될수있는데, Master 복구후 새로 insert되면, 중복된 auto_increment를 slave가 받을수있음.????? 뭔소리
+  - 샤딩해야하는 경우, auto_increment가 unique하지 않을수있음
+- [Icicle](https://github.com/intenthq/icicle) , snowflake 방식인데 redis를 곁들인?
 

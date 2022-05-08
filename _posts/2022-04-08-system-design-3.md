@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "System design 3 시스템 설계 면접 공략법"
-date: YYYY-MM-DD HH:MM
+date: 2022-04-08 19:10:00 +0400
 categories: Design
 tags: design
 ---
