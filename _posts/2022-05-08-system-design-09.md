@@ -107,4 +107,6 @@ tags: architecture
 [space/time trade-offs in hash coding with allowable errors](https://dl.acm.org/doi/10.1145/362686.362692)
 [rabin fingerprint](https://en.wikipedia.org/wiki/Rabin_fingerprint)
 [checksum]
-[웹 크롤러 예]
+[Web crawler design example](https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/web_crawler/README.md)
+  - 컨텐츠 중복 검출관련 알고리즘 
+  > Some potential algorithms are Jaccard index and cosine similarity.
