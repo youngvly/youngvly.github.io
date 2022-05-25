@@ -1,7 +1,7 @@
 ---
 title: "AWS EC2 에 Jenkins 시작하기"
 date: 2019-01-14 23:00:00 -0400
-categories: SpringBoot
+categories: ETC
 ---
 
 ## jenkins 설치

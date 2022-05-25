@@ -42,8 +42,12 @@ plainwhite:
       url : /spring-boot
     - title: JavaScript
       url : /java-script
+    - title: Java
+      url : /java
     - title: RxJava
       url : /rx-java
+    - title: Study
+      url : /study
 
   # generate social links in footer
   social_links:

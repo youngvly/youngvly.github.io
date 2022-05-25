@@ -1,7 +1,7 @@
 ---
 title: "[대규모 시스템 설계 기초] 12 채팅 시스템 설계"
 date: 2022-05-08 19:10:00 +0400
-categories: 대규모 시스템 설계 기초
+categories: design architecture study
 tags: architecture
 ---
 # 채팅 시스템 설계

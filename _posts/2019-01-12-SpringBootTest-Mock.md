@@ -1,7 +1,7 @@
 ---
 title: "Spring boot Test Mock"
 date: 2019-01-12 22:37:00 -0400
-categories: SpringBoot
+categories: SpringBoot TEST
 ---
 
 # Spring Boot Test

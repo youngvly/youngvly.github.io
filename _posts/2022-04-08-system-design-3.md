@@ -2,7 +2,7 @@
 layout: post
 title: "System design 3 시스템 설계 면접 공략법"
 date: 2022-04-08 19:10:00 +0400
-categories: Design
+categories: design architecture study
 tags: design
 ---
 # 3. 시스템 설계 면접 공략법

@@ -2,7 +2,7 @@
 title: "cannot resolve import assertj, Assertions On IntelliJ"
 date: 2020-12-29 21:57:00 -0400
 categories: ETC
-tags: intellij, 
+tags: intellij
 ---
 # cannot resolve import assertj, Assertions
 

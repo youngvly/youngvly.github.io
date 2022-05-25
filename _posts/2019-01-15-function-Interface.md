@@ -1,7 +1,7 @@
 ---
 title: "Function Interface"
 date: 2019-01-14 23:00:00 -0400
-categories: java-study
+categories: JAVA
 ---
 
 # 함수형 인터페이스

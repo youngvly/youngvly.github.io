@@ -1,7 +1,7 @@
 ---
 title: "Nginx RateLimitting"
 date: 2020-12-29 21:57:00 -0400
-categories: ETC
+categories: ETC NGINX
 tags: nginx
 ---
 # RateLimitting

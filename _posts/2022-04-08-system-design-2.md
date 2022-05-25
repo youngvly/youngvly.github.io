@@ -2,7 +2,7 @@
 layout: post
 title: "System design 2 개략적인 규모 추정"
 date: 2022-04-08 19:10:00 +0400
-categories: Design
+categories: design architecture study
 tags: design
 ---
 # 2. 개략적인 규모 추정

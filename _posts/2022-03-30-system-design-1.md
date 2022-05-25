@@ -1,7 +1,7 @@
 ---
 title: "[대규모 시스템 설계 기초] 01 사용자 수에 따른 규모 확장성"
 date: 2022-03-30 19:10:00 +0400
-categories: 대규모 시스템 설계 기초
+categories: design architecture study
 tags: architecture
 ---
 # 01. 사용자 수에 따른 규모 확장성

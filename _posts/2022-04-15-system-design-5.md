@@ -1,7 +1,7 @@
 ---
 title: "[대규모 시스템 설계 기초] 05 안정 해시 설계"
 date: 2022-04-15 19:10:00 +0400
-categories: 대규모 시스템 설계 기초
+categories: design architecture study
 tags: architecture
 ---
 
