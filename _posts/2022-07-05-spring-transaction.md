@@ -6,7 +6,6 @@ categories: SpringBoot
 tags: spring
 ---
 # Transaction
-> DB까지 트랜잭션이 걸려서 동기화 Lock이 걸려야한다.
 - transaction : 최소 행동 단위
 - exception 발생시 commit하지않고 rollback을 하기 위함.
 
@@ -16,6 +15,7 @@ tags: spring
 2. db에 종속되지않게 트랜잭션이 추상화되어있다.
    - PlatformTransactionManager
    - AOP 사용으로 비즈니스로직과 분리되어있다.
+
 ## @Transactional
 1. 트랜잭션 전파 Propagation
    - A 트랜잭션 내부에서 다른 B 트랜잭션이 생성될때 어떻게 처리할것인지
@@ -61,12 +61,15 @@ tags: spring
     - org.springframework.transaction.TransactionDefinition#TIMEOUT_DEFAULT = -1 (제한 없음?)
 5. 읽기전용
    - 성능 최적화, 의도되지않은 부작용(상태변경) 방지
+
 ## JPA에서의 Transaction
 ```java
 no entitymanager with actual transaction available for current thread
 ```
+
 jpa는 transaction을 기반으로 동작하므로, transaction 이 있어야 영속성 컨텍스트를 사용할 수 있다.
 - save 의 동작 [LINK](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.entity-persistence.saving-entites)
+
 ### delete 와 Transaction (write-behind)
 - delete는 영속성 컨텍스트의 쓰기지연 저장소에 저장되었다가, 트랜잭션의 커밋시점에 실행된다.
 - `SimpleJPARepository` 의 delete 에는 @Transactional(propagation = REQUIRED) 가 걸려있고, 상위 트랜잭션과 공유된다.
@@ -75,6 +78,7 @@ jpa는 transaction을 기반으로 동작하므로, transaction 이 있어야 �
 - jpa에서 delete는 select -> (update) -> remove 의 순서로 진행된다. (save는 왜 없어도 되는걸까?)
 - transaction이 없으면 entitymanager를 얻을수 없으므로, exception이 발생한다.
 - [참고](https://velog.io/@giantim/5)
+
 ### write-behind
 - 영속성컨텍스트가 변경사항을 모아두었다가, 커밋시점 (flush)시에 한번에 실행하는데,
 - insert -> 변경없음 -> insert -> flush = 1번 insert 발생
@@ -110,13 +114,14 @@ jpa는 transaction을 기반으로 동작하므로, transaction 이 있어야 �
   - NONE : no lock
 
 
-### 1개의 column(PK) 와 1개의 row를 가지는 데이터의 lock
+### 문제상황 : 1개의 column(PK) 와 1개의 row를 가지는 데이터의 lock
 1. delete -> save -> select
    - PK가 곧 유일한 데이터이기때문에, delete 를 할경우 다른 transaction에서 lock을 잡을 row가 없는것으로 판단된다. > 의도대로 lock이 걸리지 않음
 2. select -> update
     - select가 먼저 일어날 경우 read라 그런지(?) 먼저 lock을 잡지 않는다. -> 의도대로 lock이 걸리지 않음.
 3. update -> select
     - 의도대로 동작.
+    - 참고 ) mysql에서 CUD가 일어날경우 lock을 잡는다.
 ```java
     @Override
 	@Retryable(maxAttempts = 2, backoff = @Backoff(delay = 1000L))
@@ -129,7 +134,9 @@ jpa는 transaction을 기반으로 동작하므로, transaction 이 있어야 �
 			.getSequence();
 	}
 ```
+
 동작 확인 
+
 ```java
 	@Test
 	@DisplayName("여러 스레드가 동시에 업데이트 요청시 중복이 없어야한다.")
@@ -150,6 +157,33 @@ jpa는 transaction을 기반으로 동작하므로, transaction 이 있어야 �
 		assertThat(sequences).as("중복이 발생하지 않아야한다.").hasSize(numberOfThreads);
 	}
 ```
+
+### 문제상황 : Deadlock found when trying to get lock; try restarting transaction
+어플리케이션 로그에 db lock 관련 deadlock 로그가 찍혔고,
+```sh
+$ mysql> show engine innodb status;
+------------------------
+LATEST DETECTED DEADLOCK
+------------------------
+*** (1) TRANSACTION:...
+*** (1) HOLDS THE LOCK(S): ... 
+*** (1) WAITING FOR THIS LOCK TO BE GRANTED: ...
+*** (2) TRANSACTION: ...
+*** (2) HOLDS THE LOCK(S): ...
+*** (2) WAITING FOR THIS LOCK TO BE GRANTED: ...
+*** WE ROLL BACK TRANSACTION (1)
+```
+
+db로그를 확인하니 1과 2의 쿼리가 동일했다.
+최근 변경사항중 클래스단에 `@Transactional` 어노테이션을 추가했는데 여기서 중복으로 트랜잭션이 발생한것같다.
+```java
+@Transactional
+public class SomeCommandService{
+    @Transactional
+    public void updateSomething(){...}
+}
+```
+둘중하나 어노테이션 떼어주니 정상동작.
 
 ----
 참고
