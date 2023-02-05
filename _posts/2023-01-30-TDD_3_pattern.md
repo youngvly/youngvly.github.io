@@ -114,3 +114,214 @@ tags: test, tdd
 - 팀 프로그래밍을 할때 프로그래밍 세션을 끝마칠때는 모든 테스트가 성공한 상태로 끝마치는것이 좋다.
 - 팀원들이 코드를 체크인하기전에, 모든 테스트가 돌아간다는것이 보장되어야한다.
 - 실패한 테스트는 방금 본인이 짠 프로그램을 완벽히 이해하지 못한다는 뜻이다. 깨지면 다 날리고 다시하는것도 방법이다.
+
+# 28. 초록 막대 패턴
+- 깨지는 테스트를 가능한 빨리 통과하게 만들어라.
+## 가짜로 구현하기
+- 실패하는 테스트 구현 후 첫번째 구현은 상수 리턴으로 구현할 수 있다.
+- 심리적으로 테스트가 성공한다는 안정감을 얻을 수 있고
+- 실제 구현할때에도, 이전 테스트의 작동이 보장되기 때문에 범위조절에 용이하다.
+```java
+@Test
+void testSum(){
+  assertThat(plus(1,3)).isEqualTo(4)
+}
+
+// production
+int plus(int augend, int addend){
+  return 4;
+}
+```
+ 
+## 삼각 측량
+- 검증부가 2개 이상 있을때만 추상화하라.
+```java
+@Test
+void testSum(){
+  assertThat(plus(3,1)).isEqualTo(4)
+  assertThat(plus(3,2)).isEqualTo(5)
+}
+
+// production
+int plus(int augend, int addend){
+  return augend + addend;
+}
+```
+- 삼각측량법 적용 후 assert문이 중복이므로 assert문을 하나만 남기고 삭제하면, 프로덕션 코드에서 상수반환으로 수정될수있고, 이는 무한루프를 일으킬 수 있다. 구현 이후에 리팩토링된다면 해결되는문제가 아닌가?
+- 필자는 추상화에 감이 안올때에만 삼각측량을 사용한다고 한다.
+
+## 명백한 구현
+- 단순한 연산은 그냥 구현해버리자.
+- 제대로 동작하는것과 깨끗한 코드를 한번에 만족시키는것은 많은 일 일수 있으니, 리팩토링을 나중에 하는것으로 해결하자.
+## 하나에서 여럿으로
+- 컬렉션을 다루는 연산을 구현할때에는, 일단 컬렉션없이 구현해보고 다음에 컬렉션 구현으로 변화시켜보자.
+```java
+@Test
+void testSum(){
+  assertEquals(8, sum(5,1,2))
+}
+
+private int sum(int ...values){
+  ...
+}
+```   
+
+# xUnit 패턴
+## 단언 assert
+- 프로그램이 자동으로 코드가 동작하는지에 대한 판단을 하도록 하라.
+- 판단 결과가 boolean 값이어야한다. (true는 성공/ false는 실패)
+- assert는 구체적이어야한다. 
+  - 나쁜 예  : `assert( rectangle.area() != 0 )`
+  - 개선 예 : `assert (rectangle.area == 50)`
+- public 인터페이스만 테스트로 검증해야한다. 화이트박스 검증이 필요한건 설계의 문제이다.
+
+## fixture 
+- 여러 테스트에서 공통으로 사용하는 객체 생성할때
+- 객체를 세팅하는 코드는 중복인 경우가 많아 이런 객체를 test fixture 라 한다.
+- fixture 구현법
+  - instance field로 분리 후, setUp method 에서 초기화 > 초기화 방색을 기억해야한다.
+  - 테스트 메서드내에서 중복 구현 > 중복 코드를 감안해야 하지만 가독성은 좋다
+  - 객체 생성을 메서드로 꺼내서 호출 > 위 두 단점을 보완할 수 있지 않을까 
+- 다른 fixture가 필요한 경우, 필자는 이너클래스로 분리하여 setUp 메서드를 분리한다.  
+- 
+## 외부 fixture
+- file과 같은 외부 자원이 있는경우, 객체가 인스턴스 변수로 꺼내져있다면, tearDown 과정에서 release 해줄 수 있다. (테스트 메서드마다 finally 중복X
+## 테스트 메서드
+- 동일한 픽스처를 공유하는 모든 테스트는 동일한 클래스의 메서드로 작성될 수 있다.
+- 메서드 이름은 왜 테스트가 작성되었는지를 나타내야한다.
+- 테스트 작성전에 원하는 테스트 동작 목록을 주석으로 적어두면,테스트 클래스에 어떤 테스트가 필요할지 정리할 수 있다.
+## 예외 테스트
+- 예외가 발생하는것이 기대동작일 경우, 예외가 발생하지않는경우 테스트가 실패하게 하면 된다.
+- Rule 이용, assertThrown(..) , @Test(expected = ..Exception.class) 등등
+## 전체 테스트
+- 테스트 슈트에 대한 모음을 작성하면 된다. 
+```java
+  public static Test suite(){
+    TestSuite result = new TestSuite("test 모음")
+      result.addTestSuite(MoneyTest.class)
+      result.addTestSuite(ExchangeTest.class)
+      return result;
+  }
+```  
+- intellij에서는 패키지 단위로 돌리면 된다. 
+
+# 30. 디자인 패턴
+- 이 책에서는 리팩토링을 설계의 일종이라 보지않고, 설계와 디자인패턴을 다르게 본다.
+## Command : 계산 작업에 대한 호출을 메시지가 아닌 객체로 표현한다.
+  - 단순 메서드 호출보다 복잡한 계산은 계산을 위한 객체를 생성하자. ex) Runnable
+## VO : 객체가 생성된 이후 값이 절대 변하지 않게 하여 참조 문제가 발생되지 않게한다.
+  - 객체가 널리 공유되어야하지만, 동일성은 중요하지 않을때
+  - 참조에 의한 의도치않은 값변경 문제 해결방안
+    -  객체의 참조를 공유하지않고, 복사객체를 가지게 하는 방법 > 메모리 낭비, 공유객체의 상태변화 공유불가
+    - observer : 객체의 상태가 변화되면 통지를 받는 방법 > 흐름 이해가 어렵고, 로직이 지저분해질 수 있다.
+    - VO : 애초에 객체가 변화하지않는다면 참조 문제가 발생되지않는다. > 성능문제는 문제가 생기면 고민하자.
+## Null Object : 계산 작업의 기본 사례를 객체로 표현한다
+  - 동일한 인터페이스를 구현하는 null 상황을 표현하는 객체를 만들어 중복되는 null 검사를 없앨 수 있다.
+## Template Method : 계산작업의 변하지 않는 순서를 여러 추상 메서드로 표현하고, 상속을 통해 구체화.
+  - 작업 순서는 변하지않지만, 구현이 변할 가능성이 있는경우 적용
+  - 초기 설계보다는 리팩토링단계에서 발견되는게 좋을것.
+## Plugable Object : 둘 이상의 구현을 객체를 호출함으로써 다양성을표현한다
+- 조건문 중복을 해결하기위해 인터페이스 추출후 인터페이스 객체를 호출한다.
+```java
+// ASIS
+class SelectionTool {
+  Figure selected;
+  void mouseDown(){
+    selected = findFigure()
+    if (selected != null) {
+      select(selected)
+    }
+  }
+  void mouseMove(){
+  if (selected != null){
+    move(selected);
+  else
+    moveSelectionRectengle();
+  }
+  ..  
+}
+
+// TOBE
+class SelectionTool {
+  SelectionMode mode;
+  void mouseDown(){
+    selected = findFigure()
+    if (selected != null) 
+      mode = SingleSelection(selected)
+    else
+      mode = MultipleSelection()
+  }
+  void mouseMove(){
+    mode.move()
+   }
+   .. 
+```
+## Plugable Selector : 객체별로 서로 다른 메서드가 동적으로 호출되게 함으로써 필요없는 하위 클래스 생성을 피한다.
+- 인스턴스별로 서로 다른 메서드가 동적으로 호출되게 하는 방법
+  - 하나의 오퍼레이션을 가지는 인터페이스를 구현하는 하위 클래스가 여러개라면 상속은 무거울수있다.
+    ```java
+      interface Report {
+        void print();
+      }
+      class HTMLReport implements Report {
+        void print() {...}
+      }
+      class XMLReport implements Report {
+        void print() {...}
+      }
+    ```
+  - switch문을 가지는 하나의 클래스를 만들어 호출 > 오퍼레이션명이 여러군데 중복되어 흩어진다.
+  ```java
+  class Report {
+    final String printMessage;
+    void print(){
+      switch(printMessage) {
+        case "printHTML" : printHTML(); break;
+        case "printXML" : printXML(); break;
+        ..
+      }
+    }
+    void printHTML();
+  }
+  ```
+  - plugable selector : reflection으로 호출한다. 메서드를 하나가지는 하위클래스가 한뭉치 존재할때와 같은 직관적인 상황에서 코드를 정리하기 위한 용도로만 사용되어야 한다.
+  ```java
+  class Report {
+    final String printMessage;
+    void print(){
+      this.getClass().getMethod(printMessage, null).invoke(this,new Class[0]);
+    }
+    void printHTML(){}
+    
+  ```
+  > 구현 코드와 public 인터페이스의 강결합아닐까'ㅂ'
+## Factory Method
+- java에서 생성자 사용은 표현력과 유연함이 떨어진다.
+- 객체의 유연함이 필요할때에만 사용하자. (상위 객체의 생성자에서 다른 클래스 객체를 생성할 수 있게 하는 것)
+## Imposter : 인터페이스를 구현하는 객체를 추가하여, 시스템에 변이를 도입한다.
+- null 객체
+- composite
+## Composite : 하나의 객체로 여러 객체의(collection) 행위 조합을 표현한다.
+- 객체 집합을 나타내는 객체를 단일 객체에 대한 imposter로 구현한다. 
+```java
+interface Holding (소유재산) {
+  Money balance();
+}
+  
+class Transaction implements Holding {
+  Money value;
+  Money balance() return value; 
+}
+class Account implements Holding {
+  Holding holdings[];
+  Money balance() {
+    ...
+    return sum
+  }
+```   
+- Account(계좌)의 잔액(balance)은 Transaction(거래내역)의 합으로 구성된다.
+- 여러 계좌의(Account) 잔액(balance)은 계좌의(Account) 합으로 구성된다.
+  - 이때 여러 계좌라는 클래스를 뽑지않고, Account 자신을 동일한 인터페이스를 가지도록 하였다.
+- Account는 소유재산의 합을 잔액으로 보여준다.
+## 수집 매개 변수 : 여러 다른 객체에서 계산한 결과를 모으기 위해 매개변수를 여러곳으로 전달한다.
+## Singleton : 전역변수를 제공하지 않는 언어에서는 전역변수를 사용하지 마라.
