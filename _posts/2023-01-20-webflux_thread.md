@@ -93,3 +93,56 @@ api는 먼저 종료되어 응답이 먼저 나가고, subscribe 는 이후에 �
 [     parallel-2] in mono: parallel-2 , true
 [     parallel-2] end!!
 ```
+
+
+# for loop Mono vs Flux.flatMap
+forloop 에서 mono를 호출하는것과 Flux.flatmap 에는 사용하는 스레드의 차이가있을까 flux는 하나의 스레드에서 처리되지않을까?
+## forloop로 webclientMono를 호출시
+```java
+	private Mono<String> mono(String prefix, int i) {
+		return webClient.get()
+			.uri("/test-call")
+			.retrieve().bodyToMono(String.class)
+			.doOnNext(index -> log.error(prefix + " " + i + ": thread {} ", Thread.currentThread().getName()))
+			.delayElement(Duration.ofMillis(300));
+	}
+
+	
+	// 테스트 대상
+	for (int i = 0; i < 10; i++) {
+		mono("mono", i).subscribe();
+	}
+```
+
+```sh
+mono 3: thread reactor-http-nio-7 
+mono 2: thread reactor-http-nio-6 
+mono 6: thread reactor-http-nio-2 
+mono 5: thread reactor-http-nio-1 
+mono 1: thread reactor-http-nio-5 
+mono 0: thread reactor-http-nio-4 
+mono 4: thread reactor-http-nio-8 
+mono 9: thread reactor-http-nio-5 
+mono 8: thread reactor-http-nio-4 
+```
+스레드풀에서 반복횟수만큼 꺼내서 쓴다
+## flux.flatmap으로 webclientMono 호출시
+```java
+	Flux.fromStream(IntStream.range(0, 10).boxed())
+		.flatMap(i -> mono("flux", i))
+		.subscribe();
+```
+결과
+```sh
+flux 6: thread reactor-http-nio-6 
+flux 1: thread reactor-http-nio-1 
+flux 0: thread reactor-http-nio-8 
+flux 5: thread reactor-http-nio-5 
+flux 3: thread reactor-http-nio-3 
+flux 4: thread reactor-http-nio-4 
+flux 2: thread reactor-http-nio-2 
+flux 7: thread reactor-http-nio-7 
+flux 8: thread reactor-http-nio-8 
+flux 9: thread reactor-http-nio-1 
+```
+차이가 없다.
