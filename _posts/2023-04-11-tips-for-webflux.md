@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Tips for webflux"
-date: YYYY-MM-DD HH:MM
 categories: SpringBoot
 tags: rxJava, springBoot, netty
 ---
