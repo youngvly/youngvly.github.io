@@ -1,0 +1,175 @@
+---
+title: "간단하지만 헷갈리는 Kotlin window 테스트"
+date: 2023-11-20 19:10:00 +0400
+categories: kotlin
+tags: kotlin, programing
+---
+
+# 시나리오
+10개의 요소가 모두 액션 B가 실행되어야하는데, n개 간격으로 액션 A가 실행되어야 하고, 이후 10개의 요소가 리턴되어야한다.
+ex)
+```
+// input 1,2,3,4,5,10
+
+ 1 B
+ 2 B
+   A
+ 3 B
+ 4 B
+   A
+ 5 B
+ 6 B
+   A
+   ..
+
+// output 1B,2B,3B,..10B
+```
+
+# n개 단위로 나누기 
+## chunked
+```kotlin
+(1..100).chunked(n) // List<List<Int>>
+```
+## windowed
+```kotlin
+(1..100).windoed(n,n,true) //List<List<Int>>
+```
+
+# n개 간격으로 액션 A 실행하기
+## (X) 순서대로 실행될까
+```kotlin
+ (1.. 100).chunked(10)
+            .onEach { log.error("window run ${windowRun++} times")}
+            .flatten()
+            .map { it ->
+                {
+                    log.error("each run ${eachRun++} times")
+                    it * -1
+                }
+            }
+
+```
+``` sh
+window run 0 times
+window run 1 times
+window run 2 times
+window run 3 times
+...
+window run 9 times
+each run 0 times
+each run 1 times
+each run 2 times
+each run 3 times
+...
+
+```
+기대결과가 나오지 않았다
+
+## (O) map 안에서 처리
+```kotlin
+(1.. 100).chunked(10)
+            .onEach { it ->
+                log.error("window run ${windowRun++} times")
+                it.map { it ->
+                {
+                    log.error("each run ${eachRun++} times")
+                    it * -1
+                }
+            }
+            }
+```
+```sh
+window run 0 times
+each run 0 times
+each run 1 times
+each run 2 times
+...
+each run 9 times
+
+window run 1 times
+each run 10 times
+each run 11 times
+...
+```
+- 성공
+- 10_000개 161ms
+
+
+## (X) window transformation 이 window 마다 돈다면?
+```kotlin
+ (1..100).windowed(10, 10, true) {
+            it.map { log.error("each run ${eachRun++} times") }
+        }
+            .onEach { log.error("window run ${windowRun++} times") }
+
+
+```
+
+```sh
+each run 0 times
+each run 1 times
+each run 2 times
+each run 3 times
+...
+each run 99 times
+
+window run 0 times
+window run 1 times
+```
+요소 한개별로 돌았다.
+
+## (O) Flux로 하면
+```kotlin
+(1..100).toFlux()
+            .window(10)
+            .doOnNext{log.error("window run ${windowRun++} times")}
+            .map { list -> list.map { log.error("each run ${eachRun++} times") } }
+            .flatMap { Flux.from(it) }
+            .collectList()
+            .block()
+```
+```sh
+window run 0 times
+each run 0 times
+each run 1 times
+each run 2 times
+...
+window run 1 times
+each run 10 times
+each run 12 times
+```
+- 성공
+- 10_000 개 532ms
+- window를 좀 더 디테일한 조건으로 나누고싶으면 flux를 써도 좋겠다
+
+## list를 나누지않고 인덱스로만 실행
+```kotlin
+(1.. 100)
+            .mapIndexed { index, it ->
+                if (index % 10 == 0){
+                    log.error("window run ${windowRun++} times")
+                }
+                log.error("each run ${eachRun++} times")
+                it * -1
+            }
+```
+```sh
+window run 0 times
+each run 0 times
+each run 1 times
+each run 2 times
+...
+window run 1 times
+each run 10 times
+each run 12 times
+```
+- 성공
+- 10_000 개 375ms
+
+나뉜 list를 파라미터로 넘겨야하는 필요가 있어서 chunked를 고집했는데, 인덱스 체크로 간단하게 하는방법도 있긴 하다.
+조건문이 여러번 돌아서인지 chunked로 나누어서 실행한것과 실행시간 차이가 꽤 난다.
+
+# 결론
+
+- [플로우안에서 처리](#o-map-안에서-처리) 방법이 무난
+- 처리 시간은 flux > 인덱스 조건문으로 처리 > map 안에서 처리 순
