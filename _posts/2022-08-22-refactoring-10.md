@@ -3,7 +3,7 @@
 layout: post
 title: "Refactoring 10 조건부 로직 간소화"
 date: 2022-08-22 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 10 조건부 로직 간소화

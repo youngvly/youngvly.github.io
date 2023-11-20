@@ -2,7 +2,7 @@
 layout: post
 title: "자바와 JUnit을 활용한 실용주의 단위 테스트"
 date: 2022-11-17 15:50
-categories: Test, JUnit, Java
+categories: Test, JUnit, Java study
 tags: study, Test
 ---
 ## 책 코드 환경

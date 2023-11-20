@@ -3,7 +3,7 @@
 layout: post
 title: "Refactoring 09 데이터 조직화"
 date: 2022-08-22 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 09 데이터 조직화

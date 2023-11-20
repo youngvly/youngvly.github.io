@@ -1,7 +1,7 @@
 ---
 title: "Webflux thread"
 date: 2023-01-20 19:10:00 +0400
-categories: Webflux, Spring
+categories: Webflux, Spring lab
 tags: webflux, spring
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "SoftwareEngineering at google : 문화"
 date: 2023-03-12 19:10:00 +0400
-categories: softwareEngineering
+categories: softwareEngineering, study
 tags: SoftwareEngineering
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title: "ElegantObject 02 Education"
 date: 2022-06-19 23:51
-categories: CleanCode
+categories: CleanCode study
 tags: cleanCode, elegantObject
 ---
 # 02 Education

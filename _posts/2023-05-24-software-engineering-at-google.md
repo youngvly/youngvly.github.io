@@ -1,7 +1,7 @@
 ---
 title: "SoftwareEngineering at google : 15 폐기"
 date: 2023-05-24 19:10:00 +0400
-categories: softwareEngineering
+categories: softwareEngineering, study
 tags: SoftwareEngineering
 ---
 

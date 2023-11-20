@@ -2,7 +2,7 @@
 layout: post
 title: "Refactoring 04 테스트 구축하기"
 date: 2022-07-21 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 04 테스트 구축하기

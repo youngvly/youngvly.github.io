@@ -1,7 +1,7 @@
 ---
 title: "SoftwareEngineering at google : 프로세스"
 date: 2023-04-03 19:10:00 +0400
-categories: softwareEngineering
+categories: softwareEngineering, study
 tags: SoftwareEngineering
 ---
 

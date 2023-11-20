@@ -1,7 +1,7 @@
 ---
 title: "TDD 1장 Money Example"
 date: 2023-01-02 19:10:00 +0400
-categories: test
+categories: test, study
 tags: test, tdd
 ---
 

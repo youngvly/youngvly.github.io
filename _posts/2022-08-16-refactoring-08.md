@@ -3,7 +3,7 @@
 layout: post
 title: "Refactoring 08 기능이동"
 date: 2022-08-15 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 08 기능이동

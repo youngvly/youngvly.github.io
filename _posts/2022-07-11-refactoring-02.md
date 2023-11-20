@@ -2,7 +2,7 @@
 layout: post
 title: "Refactoring 02 리팩터링 원칙"
 date: 2022-07-11 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 02 리팩터링 원칙

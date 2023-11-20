@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tips for webflux"
-categories: SpringBoot
+categories: SpringBoot summary
 tags: rxJava, springBoot, netty
 ---
 

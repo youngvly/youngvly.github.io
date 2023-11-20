@@ -38,16 +38,22 @@ plainwhite:
   search: true # set to true to enable searchbar
   dark_mode: true # set to true to add dark mode toggle
   navigation :
+    - title: Java
+      url : /java
+    - title: Kotlin
+      url : /kotlin
     - title: SpringBoot
       url : /spring-boot
     - title: JavaScript
       url : /java-script
-    - title: Java
-      url : /java
-    - title: RxJava
-      url : /rx-java
     - title: Study
       url : /study
+    - title: Lab
+      url : /lab
+    - title: Summary
+      url : /summary
+    
+    
 
   # generate social links in footer
   social_links:

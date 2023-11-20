@@ -2,7 +2,7 @@
 layout: post
 title: "Refactoring 01 첫번째 예씨"
 date: 2022-06-25 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 01 첫번째 예시

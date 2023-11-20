@@ -2,7 +2,7 @@
 layout: post
 title: "Spring transaction"
 date: 2022-07-05 16:50
-categories: SpringBoot
+categories: SpringBoot summary
 tags: spring
 ---
 # Transaction

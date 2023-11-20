@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Refactoring 06 기본적인 리팩터링"
-date: 2022-07-30 23:51
-categories: Refactoring
+date: 2022-07-30 23:51 
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 06 기본적인 리팩터링

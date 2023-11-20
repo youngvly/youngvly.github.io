@@ -2,7 +2,7 @@
 layout: post
 title: "ElegantObject 01 Birth"
 date: 2022-06-19 23:51
-categories: CleanCode
+categories: CleanCode study
 tags: cleanCode, elegantObject
 ---
 # 01 Birth

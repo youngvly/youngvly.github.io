@@ -1,7 +1,7 @@
 ---
 title: "TDD 3장 테스트주도 개발의 패턴"
 date: 2023-01-30 19:10:00 +0400
-categories: test
+categories: test, study
 tags: test, tdd
 ---
 

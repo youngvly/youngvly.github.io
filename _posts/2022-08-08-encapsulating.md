@@ -2,7 +2,7 @@
 layout: post
 title: "Refactoring 07 캡슐화"
 date: 2022-08-08 23:59
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 07 캡슐화

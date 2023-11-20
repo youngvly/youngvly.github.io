@@ -2,7 +2,7 @@
 layout: post
 title: "Refactoring 12 상속 다루기"
 date: 2022-09-18 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 12 상속 다루기

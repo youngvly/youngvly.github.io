@@ -2,7 +2,7 @@
 layout: post
 title: "Refactoring 03 코드에 나는 악취"
 date: 2022-07-21 23:51
-categories: Refactoring
+categories: Refactoring study
 tags: cleanCode, study
 ---
 # 03 코드에서 나는 악취
