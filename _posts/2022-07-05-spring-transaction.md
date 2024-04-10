@@ -134,7 +134,7 @@ jpa는 transaction을 기반으로 동작하므로, transaction 이 있어야 �
 			.getSequence();
 	}
 ```
-
+ㅌ
 동작 확인 
 
 ```java
