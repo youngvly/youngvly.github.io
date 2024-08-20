@@ -46,6 +46,8 @@ plainwhite:
       url : /spring-boot
     - title: JavaScript
       url : /java-script
+    - title: Architecture
+      url : /architecture
     - title: Study
       url : /study
     - title: Lab
